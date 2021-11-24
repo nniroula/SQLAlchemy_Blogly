@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} New User Form {% endblock %}</title>
+</head>
+<body>
+    {% block content %}
+    <h3>Create a User </h3>
+    <form action="" method="POST"> 
+        <label for="first-nam">First Name </label>
+        <input id="first-nam" type="text" name="new-user-first-name" placeholder="first name" >
+        <br>
+        <br>
+
+        <label for="last-nam">Last Name </label>
+        <input id="last-nam" type="text" name="new-user-last-name" placeholder="last name" >
+        <br>
+        <br>
+
+        <label for="image-url">Image URL </label>
+        <input id="image-url" type="url" name="image-url" placeholder="link to image" >
+        <br>
+        <br>
+
+        <button>Add</button>
+    </form>
+
+    {% endblock %}
+    
+</body>
+</html>

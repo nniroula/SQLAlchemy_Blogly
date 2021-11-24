@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Detail Page</title>
+</head>
+<body>
+    <h3>User Detail Page</h3>
+
+    <p> {{ singleuser.display_first_last_names() }} </p>
+    <img height="150" width="150" src= "https://images.pexels.com/photos/3987020/pexels-photo-3987020.jpeg?cs=srgb&dl=pexels-anna-shvets-3987020.jpg&fm=jpg">
+    
+    <br>
+    <br>
+    <form >
+        <button type="submit" formaction="/users/{{singleuser.id}}/edit">Edit</button> &nbsp; &nbsp; 
+        <button type="submit" formation="/users/{{singleuser.id}}/delete">delete</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}User Listing page {% endblock %}</title>
+</head>
+<body>
+    {% block content %}
+    <h3>Users</h3>
+<!-- Make these links to view the detail page for the user. -->
+
+    <!-- <form aciton=""> -->
+        {% for user in  get_values_from_db %}
+            <ul>
+                <!-- add some qurey to get first and last name -->
+                <!-- <li>  <a href=url_for(function_name, parameters > > {{user.first_name}} {{user.last_name}} </a>   </li> -->
+                <li>  <a href="url_for(show_details_about_user, user_id)" > {{user.first_name}} {{user.last_name}} </a>   </li>
+            </ul>
+        {% endfor %}
+        <!-- {{all_users}} -->
+        <!-- user listing at the beginning is empty. Once a new user form is submitted, this will be populated -->
+        <button>Add User</button>
+    <!-- </form> -->
+    {% endblock %}
+</body>
+</html>
+
+<!-- all_users_list = User(first_name = first_name_from_form, last_name = last_name_from_form , image_url = image_url_from_form) -->
