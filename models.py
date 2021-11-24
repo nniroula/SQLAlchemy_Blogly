@@ -9,7 +9,7 @@ def connect_db(app):
 # models go underneath here
 
 class User(db.Model):
-    """ User class """
+    """ User class. Model defines virtual sql tables """
 
     __tablename__ = "users"
 
@@ -24,4 +24,19 @@ class User(db.Model):
                             unique = False)
     image_url = db.Column(db.String,
                             nullable = False,
-                            unique = False)
+                            unique = False)   # put default image url
+
+    # we need to display first and last name. So, have a function for it
+    # @classmethod   # becuase we won't be creating an instance of this class
+    # def display_image(self):
+    #     return f'{self.image_url}'
+
+    def display_image(self):
+        return f'{self.image_url}'
+
+    # @classmethod 
+    # def display_first_last_names(cls):
+    #     return f"{cls.first_name} {cls.last_name}"
+
+    def display_first_last_names(self):
+        return f"{self.first_name} {self.last_name}"
