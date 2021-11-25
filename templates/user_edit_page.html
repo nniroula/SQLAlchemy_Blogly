@@ -9,20 +9,20 @@
 <body>
     <h3>Edit a user</h3>
     <br>
-    <form>
+    <form method="POST">
         <label for="firstn"> First Name </label>
-        <input id="firstn" type="text" name="update-first" Placeholder="first name" >
+        <input id="firstn" type="text" name="update-first" value="{{user.first_name}}" >
         <br>
         <br>
 
         <label for="lastn">Last Name</label>
-        <input id="lastn" type="text" name="update-last" placeholder="last name" >
+        <input id="lastn" type="text" name="update-last" value="{{user.last_name}}" >
 
         <br>
         <br>
 
         <label for="img-url">Image URL</label>
-        <input id="img-url" type="url" name="update-url" placeholder="link to image">
+        <input id="img-url" type="url" name="update-url" value="{{user.image_url}}">
 
         <br>
         <br>
