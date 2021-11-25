@@ -8,14 +8,20 @@
 </head>
 <body>
     <h3>User Detail Page</h3>
+  
+    {% if singleuser.image_url %}
 
-    <p> {{ singleuser.display_first_last_names() }} </p>
-    <img height="150" width="150" src= "https://images.pexels.com/photos/3987020/pexels-photo-3987020.jpeg?cs=srgb&dl=pexels-anna-shvets-3987020.jpg&fm=jpg">
+        <img src={{ singleuser.display_image() }} height="150" width="150"> 
+   
+    {% endif %}
+
+    {{ singleuser.display_first_last_names() }} 
     
     <br>
     <br>
     <form >
-        <button type="submit" formaction="/users/{{singleuser.id}}/edit">Edit</button> &nbsp; &nbsp; 
+        
+        <button input type="submit" formaction="/users/{{singleuser.id}}/edit">Edit</button> &nbsp; &nbsp; 
         <button type="submit" formation="/users/{{singleuser.id}}/delete">delete</button>
     </form>
 </body>
