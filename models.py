@@ -7,6 +7,7 @@ def connect_db(app):
     db.init_app(app)
 
 # models go underneath here
+default_url = "https://www.google.com/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2Fc%2Fc3%2FPython-logo-notext.svg%2F1200px-Python-logo-notext.svg.png&imgrefurl=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FPython_(programming_language)&tbnid=aNKixiwLiDxvIM&vet=12ahUKEwj8o9bhmrL0AhVWZM0KHZ8zDFQQMygAegUIARDSAQ..i&docid=3wRBXLyvECcz0M&w=1200&h=1200&itg=1&q=python%20programming%20language%20images&client=safari&ved=2ahUKEwj8o9bhmrL0AhVWZM0KHZ8zDFQQMygAegUIARDSAQ"
 
 class User(db.Model):
     """ User class. Model defines virtual sql tables """
@@ -22,9 +23,9 @@ class User(db.Model):
     last_name = db.Column(db.String(50),
                             nullable = False,
                             unique = False)
-    image_url = db.Column(db.String,
+    image_url = db.Column(db.Text,
                             nullable = False,
-                            unique = False)   # put default image url
+                            default = default_url)   # put default image url
 
     # we need to display first and last name. So, have a function for it
     # @classmethod   # becuase we won't be creating an instance of this class
