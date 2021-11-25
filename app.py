@@ -2,8 +2,10 @@ from flask import Flask, redirect, render_template, request, url_for
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db  # import SQLAlchemy instance and a method
 from models import User   # import the class form models.py
+# from flask_cors import CORS
 
-app = Flask(__name__)
+app = Flask(__name__) 
+# CORS(app)
 
 app.config['SECRET_KEY'] = "nabinbro"
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
@@ -23,14 +25,14 @@ db.create_all()  # to create all tables
 def user_list():
     return render_template("user_listing.html")
 
-@app.route('/')
+@app.route('/')      # OK
 def home_page():
     # GET /
     # Redirect to list of users. (We’ll fix this in a later step).
     # return redirect("users.html")
     return redirect('/user_list')
 
-@app.route("/users")
+@app.route("/users")        # Ok, Incomplete
 def list_all_users_in_db():
     # GET /users
     # Show all users.
@@ -38,10 +40,9 @@ def list_all_users_in_db():
     # Have a link here to the add-user form.  # this is to add user button, DONE in user_lising.html file
     
     get_values_from_db = User.query.all()  # this is a query to get all items in database
-    # OR use Model_Class.query.get_or_404() b/c get returns none if it does not find any thing. this returns 404 page
-    return render_template("user_listing.html", get_values_from_db = get_values_from_db)  # now this one, we need links here
+    return render_template("user_listing.html", get_values_from_db = get_values_from_db)  
 
-@app.route("/users/new", methods=["GET", "POST"]) 
+@app.route("/users/new", methods=["GET", "POST"])   # Ok
 def get_new_user():
     """add a new user """
     # GET /users/new 
@@ -62,23 +63,26 @@ def get_new_user():
 
         return redirect("/users")
     
-@app.route("/users/<int:user_id>") 
+    #3 this is not working
+@app.route("/users/<int:user_id>")   # Ok, edit and delete does not work, when you go to the edit page it does not show the information
 def show_details_about_user(user_id):
     # GET /users/[user-id]
     # Show information about the given user.
     # Have a button to get to their edit page, and to delete the user.
     singleuser = User.query.get_or_404(user_id)    # becuase User.query.get(user_id) can return None
 
+    # may be redirect to ("/users/{{user_id}}") in html form
     return render_template("user_detail_page.html", singleuser = singleuser) 
 
-@app.route("/users/<int:user_id>/edit", methods=["GET", "POST"])
+@app.route("/users/<int:user_id>/edit", methods=["GET", "POST"])   # Stuck here, buttons do not work
 def show_edit_page_for_a_user(user_id):
     # GET /users/[user-id]/edit
     # Show the edit page for a user.
     #Have a cancel button that returns to the detail page for a user, and a save button that updates the user.
 
     if request.method == "GET":
-        return render_template("user_edit_page.html") 
+        user = User.query.get_or_404(user_id)
+        return render_template("user_edit_page.html", user = user) 
 
     # POST /users/[user-id]/edit
     # Process the edit form, returning the user to the /users page.
@@ -104,3 +108,4 @@ def delete_user(user_id):
     db.session.commit()
     
     return redirect("/users") 
+
