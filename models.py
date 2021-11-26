@@ -40,3 +40,12 @@ class User(db.Model):
 
     def display_first_last_names(self):
         return f"{self.first_name} {self.last_name}"
+
+# part 2, add model for Post
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
+    title = db.Column(db.Text, nullable = False)
+    content = db.Column(db.Text)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    created_at = db.Column(db.DateTime)
+    
