@@ -14,7 +14,7 @@
     <!-- <form aciton=""> -->
         {% for user in  get_values_from_db %}
             <ul>
-                <li>  <a href={{url_for('show_details_about_user', user_id = 1)}} > {{user.first_name}} {{user.last_name}} </a>   </li>
+                <li>  <a href={{url_for('show_details_about_user', user_id = user.id)}} > {{user.first_name}} {{user.last_name}} </a>   </li>
             </ul>
         {% endfor %}
         <!-- {{all_users}} -->

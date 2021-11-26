@@ -39,7 +39,7 @@ def list_all_users_in_db():
     # Make these links to view the detail page for the user.   # this means when you click on the user's name, it has to take you to details page
     # Have a link here to the add-user form.  # this is to add user button, DONE in user_lising.html file
     
-    get_values_from_db = User.query.all()  # this is a query to get all items in database
+    get_values_from_db = User.query.all()  # this is a query to get all items in database, it is object you can iterate over
     return render_template("user_listing.html", get_values_from_db = get_values_from_db)  
 
 @app.route("/users/new", methods=["GET", "POST"])   # Ok
@@ -56,8 +56,14 @@ def get_new_user():
         #@app.route("/users/new", methods=["GET", "POST"])
         first_name_from_form = request.form["new-user-first-name"]
         last_name_from_form = request.form["new-user-last-name"]
-        image_url_from_form = request.form["image-url"]
-        all_users_list = User(first_name = first_name_from_form, last_name = last_name_from_form , image_url = image_url_from_form)
+        image_url_from_form = request.form["image-url"] 
+
+        if image_url_from_form != None:
+            all_users_list = User(first_name = first_name_from_form, last_name = last_name_from_form , image_url = image_url_from_form)
+        else:
+            image_url_from_form = User.image_url
+            all_users_list = User(first_name = first_name_from_form, last_name = last_name_from_form, image_url = image_url_from_form)
+
         db.session.add(all_users_list) 
         db.session.commit()
 
