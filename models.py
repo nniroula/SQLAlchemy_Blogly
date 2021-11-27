@@ -8,6 +8,7 @@ def connect_db(app):
 
 # models go underneath here
 default_url = "https://cs.cheggcdn.com/covers2/64370000/64371514_1534275794_Width288.jpg"
+
 class User(db.Model):
     """ User class. Model defines virtual sql tables """
 
@@ -25,7 +26,9 @@ class User(db.Model):
     image_url = db.Column(db.Text,
                             nullable = False,
                             default = default_url)   # put default image url
-
+    # reference Post model class
+    reference_post = db.relationship('Post')  # with backref you can reference in only one class, and SQLAlchemy references for both via used vairable
+                                                # ref = db.relationships('Post', backref = 'references')
     # we need to display first and last name. So, have a function for it
     # @classmethod   # becuase we won't be creating an instance of this class
     # def display_image(self):
@@ -43,9 +46,12 @@ class User(db.Model):
 
 # part 2, add model for Post
 class Post(db.Model):
+    __tablename__ = "post_table"
+
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
     title = db.Column(db.Text, nullable = False)
     content = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    created_at = db.Column(db.DateTime)
-    
+    created_at = db.Column(db.DateTime)    # nullable = False,   default = datetime.datetime.now)
+    # need to reference model class User
+    reference_to_user = db.relationship('User') # with backref you can reference in only one class, and SQLAlchemy references for both via used vairable
