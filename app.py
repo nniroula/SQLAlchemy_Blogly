@@ -141,7 +141,7 @@ def display_form_for_new_post(user_id):
             db.session.commit()
             return redirect (f'/users/{user_id}') # f string b/c user_id is a python variable, not the jinja template variable
         
-@app.route("/posts/<post_id>")  #It does not render first and last name for BY .............
+@app.route("/posts/<int:post_id>")  #It does not render first and last name for BY .............
 def show_a_post(post_id):
     # GET /posts/[post-id]
     # Show a post.
@@ -149,24 +149,39 @@ def show_a_post(post_id):
     get_post = Post.query.get_or_404(post_id)
     return render_template('post_files/show_post.html', get_post = get_post)
 
-@app.route("/post/<post_id>/edit")
+@app.route("/post/<int:post_id>/edit", methods = ["GET", "POST"])   # bottons do not work right now
 def show_form_to_edit_post(post_id):
     # GET /posts/[post-id]/edit
     # Show form to edit a post, and to cancel (back to user page). 
             # To edit we need to get value from form input value="something"
     user_to_edit = Post.query.get_or_404(post_id)
+    if request.method == "GET":
+        return render_template("post_files/edit.html", user_to_edit = user_to_edit)
+    if request.method == "POSt":
+        # POST /posts/[post-id]/edit
+        # Handle editing of a post. Redirect back to the post view.
+        pass
+        # if request.form["editingcontent"] == f"{{user_to_edit.content}}"
+        if request.form["editingcontent"] == f"{user_to_edit.content}": # this should be a content for value attribute
+            user_to_edit.title = request.form["editing"]
+            user_to_edit.content = request.form["editingcontent"]
+            db.session.add(user_to_edit)
+            db.session.commit()
+            return redirect(f'/users/{user_to_edit.user_id}')   # this does not redirect back to post view
 
-    return render_template("post_files/edit.html", user_to_edit = user_to_edit)
+@app.route("/posts/<int:post_id>/delete", methods=["POST"])  # this does not work yet
+def delete_a_post(post_id):
+    # POST /posts/[post-id]/delete
+    # Delete the post.
+    # Change the User Page
+    # Change the user page to show the posts for that user.
+    post_to_delete = Post.query.get(post_id)
+    post_to_delete.delete(post_to_delete)
+    db.session.commit()
+    # flash some messgae such as something removed
+    return redirect(f"/users/{post_to_delete.user_id}")
 
 """
-
-POST /posts/[post-id]/edit
-Handle editing of a post. Redirect back to the post view.
-POST /posts/[post-id]/delete
-Delete the post.
-Change the User Page
-Change the user page to show the posts for that user.
-
 Testing
 Update any broken tests and add more testing
 
