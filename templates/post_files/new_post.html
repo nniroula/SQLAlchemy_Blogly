@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Post for a user </title>
+</head>
+<body>
+    <h2>Add post for {{ post_user.display_first_last_names()}} </h2>
+    <form method="POST">
+        <label for="title">Title</label>
+        <!-- come and fill out value for value with variable -->
+        <input id="title" type="text" name="titleinput" value="">
+        <br>
+        <br>
+        <label for="containing">Content</label>
+        <input id="containing" type="text" name="cont">
+    
+    <br>
+    <br>
+    <!-- <button type="submit" formaction="/users/{{user_id}}" formmethod="POST">cancel</button> -->
+  
+    <a href="/users/{{ post_user.id }}">Cancel</a>   
+ 
+    <!-- <button type="submit" formaction="/users/{{post_user.id}}" formmethod="POST">Add</button> -->
+    <!-- <button type="submit" formaction="/users/{{post_user.id}}">Add</button> -->
+
+    <button type="submit" name="addpost" value="contentadded">Add</button>
+
+</form>
+</body>
+</html>

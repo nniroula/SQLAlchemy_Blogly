@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show a user post</title>
+</head>
+<body>
+    <form>
+        {{ get_post.title }} 
+        <p> {{get_post.content}} </p>
+        <!-- This is not rendering first and last name -->
+        <p>By {{get_post.reference_to_user.first_name }}</p>
+        
+       <button>Cancel</button> &nbsp; &nbsp;
+       <button>Edit</button> &nbsp; &nbsp;
+       <button>delete</button>
+   </form>
+</body>
+</html>

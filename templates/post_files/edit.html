@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Post Edit page</title>
+    </head>
+    <body>
+        <h3>Edit Post</h3>
+        <form method=>
+            <label for="editpost">Title</label>
+            <input type="text" id="editpost" name="editing" value={{user_to_edit.title}}>
+            <br>
+            <br>
+            <label for="editcontent">Post Content</label>
+            <input type="textarea" id="editcontent" name="editingcontent" value={{user_to_edit.content}}>
+            <br>
+            <br>
+            <button>Cancel</button> &nbsp; &nbsp;
+            <button>Edit</button>
+           
+        </form>
+        
+    </body>
+</html>
