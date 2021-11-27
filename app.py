@@ -1,8 +1,10 @@
+from datetime import datetime
 from flask import Flask, redirect, render_template, request, url_for
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db  # import SQLAlchemy instance and a method
-from models import User   # import the class form models.py
+from models import User, Post   # import the class form models.py
 # from flask_cors import CORS
+
 
 app = Flask(__name__) 
 # CORS(app)
@@ -115,3 +117,57 @@ def delete_user(user_id):
     
     return redirect("/users") 
 
+# Post Routes
+
+@app.route('/users/<int:user_id>/posts/new', methods=["GET", "POST"])  #add button does not work
+def display_form_for_new_post(user_id): 
+    # GET /users/[user-id]/posts/new
+    # Show form to add a post for that user.
+    post_user = User.query.get_or_404(user_id)
+    if request.method == "GET":
+        return render_template("post_files/new_post.html", post_user = post_user) 
+    if request.method == "POST":
+        # POST /users/[user-id]/posts/new
+        # Handle add form; add post and redirect to the user detail page.
+        if request.form["addpost"] == "contentadded":
+            title_from_form = request.form['titleinput']
+            content_from_form = request.form['cont']
+        
+        # new_post =  Post( title, conent, user_id)
+            new_post_user = Post(title = title_from_form, content = content_from_form)
+        
+            # flash some messages to show if the form processes successfully to add some content
+            db.session.add(new_post_user)
+            db.session.commit()
+            return redirect (f'/users/{user_id}') # f string b/c user_id is a python variable, not the jinja template variable
+        
+@app.route("/posts/<post_id>")  #It does not render first and last name for BY .............
+def show_a_post(post_id):
+    # GET /posts/[post-id]
+    # Show a post.
+    # Show buttons to edit and delete the post.
+    get_post = Post.query.get_or_404(post_id)
+    return render_template('post_files/show_post.html', get_post = get_post)
+
+@app.route("/post/<post_id>/edit")
+def show_form_to_edit_post(post_id):
+    # GET /posts/[post-id]/edit
+    # Show form to edit a post, and to cancel (back to user page). 
+            # To edit we need to get value from form input value="something"
+    user_to_edit = Post.query.get_or_404(post_id)
+
+    return render_template("post_files/edit.html", user_to_edit = user_to_edit)
+
+"""
+
+POST /posts/[post-id]/edit
+Handle editing of a post. Redirect back to the post view.
+POST /posts/[post-id]/delete
+Delete the post.
+Change the User Page
+Change the user page to show the posts for that user.
+
+Testing
+Update any broken tests and add more testing
+
+"""
