@@ -55,3 +55,15 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime)    # nullable = False,   default = datetime.datetime.now)
     # need to reference model class User
     reference_to_user = db.relationship('User') # with backref you can reference in only one class, and SQLAlchemy references for both via used vairable
+
+# Part, M2M relationsips and composite primary key
+
+class PostTag(db.Model):
+    __tablename__ = "postTagsTable"
+    post_id = db.Column(db.Integer,  db.ForeignKey('post_table.id'), primary_key = True)
+    tag_id = db.Column(db.Integer, db.ForeignKey('tagsTable.id'), primary_key = True)
+
+class Tag(db.Model):
+    __tablename__ = "tagsTable"
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.Text, unqiue = True, nullable = False)
