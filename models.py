@@ -60,10 +60,14 @@ class Post(db.Model):
 
 class PostTag(db.Model):
     __tablename__ = "postTagsTable"
+
     post_id = db.Column(db.Integer,  db.ForeignKey('post_table.id'), primary_key = True)
     tag_id = db.Column(db.Integer, db.ForeignKey('tagsTable.id'), primary_key = True)
 
 class Tag(db.Model):
     __tablename__ = "tagsTable"
+
     id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.Text, unqiue = True, nullable = False)
+    name = db.Column(db.Text, nullable = False, unique = True) 
+    # through_relationship = db.relationship('Post', secondary = "postTagRelation", backref = "postAndTag")
+    through_relationship = db.relationship('Post', secondary = "postTagsTable", backref = "postAndTag")
