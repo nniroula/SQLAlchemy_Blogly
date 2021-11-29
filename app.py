@@ -1,8 +1,10 @@
 from datetime import datetime
 from flask import Flask, redirect, render_template, request, url_for
 from flask_debugtoolbar import DebugToolbarExtension
+# from models import db, connect_db  # import SQLAlchemy instance and a method
+from models import User, Post, Tag, PostTag   # import the class from models.py
+# from models import User, Post  # import the class from models.py
 from models import db, connect_db  # import SQLAlchemy instance and a method
-from models import User, Post   # import the class form models.py
 # from flask_cors import CORS
 
 
@@ -181,8 +183,8 @@ def delete_a_post(post_id):
     # flash some messgae such as something removed
     return redirect(f"/users/{post_to_delete.user_id}")
 
-"""
-Testing
-Update any broken tests and add more testing
+# Testing
+# Update any broken tests and add more testing
 
-"""
+# Part 3    ################################################################################################
+# add M2M relationship, especially add tagging feature
