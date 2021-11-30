@@ -30,16 +30,9 @@ class User(db.Model):
     reference_post = db.relationship('Post')  # with backref you can reference in only one class, and SQLAlchemy references for both via used vairable
                                                 # ref = db.relationships('Post', backref = 'references')
     # we need to display first and last name. So, have a function for it
-    # @classmethod   # becuase we won't be creating an instance of this class
-    # def display_image(self):
-    #     return f'{self.image_url}'
 
     def display_image(self):
         return f'{self.image_url}'
-
-    # @classmethod 
-    # def display_first_last_names(cls):
-    #     return f"{cls.first_name} {cls.last_name}"
 
     def display_first_last_names(self):
         return f"{self.first_name} {self.last_name}"
