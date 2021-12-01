@@ -204,16 +204,29 @@ def show_detail_about_a_tag(tag_id):
     return render_template('tags/user_detail.html', aTag = aTag)
 
 
+@app.route('/tags/new')
+def show_form_to_add_tag():
+    # GET /tags/new
+    # Shows a form to add a new tag.
+    return render_template('tags/new_tag.html')
+
+
+@app.route('/tags/new', methods = ["POST"])  # incomplete
+def process_tag_input():
+    # POST /tags/new
+    # Process add form, adds tag, and redirect to tag list.
+    info_from_form = request.form["tagInput"]
+    add_tag = Tag(name = info_from_form)
+    db.session.add(add_tag)
+    db.session.commit()
+
+    return redirect('/tags')
+
 """
 
 Add Routes
 
 
-GET /tags/new
-Shows a form to add a new tag.
-
-POST /tags/new
-Process add form, adds tag, and redirect to tag list.
 
 GET /tags/[tag-id]/edit
 Show edit form for a tag.
