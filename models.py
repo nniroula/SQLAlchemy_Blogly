@@ -12,7 +12,7 @@ default_url = "https://cs.cheggcdn.com/covers2/64370000/64371514_1534275794_Widt
 class User(db.Model):
     """ User class. Model defines virtual sql tables """
 
-    __tablename__ = "users"
+    __tablename__ = "users"             
 
     id = db.Column(db.Integer,
                     primary_key = True,
@@ -49,7 +49,7 @@ class Post(db.Model):
     # need to reference model class User
     reference_to_user = db.relationship('User') # with backref you can reference in only one class, and SQLAlchemy references for both via used vairable
 
-# Part, M2M relationsips and composite primary key
+# Part 3, M2M relationsips and composite primary key
 
 class PostTag(db.Model):
     __tablename__ = "postTagsTable"
