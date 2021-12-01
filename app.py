@@ -188,3 +188,39 @@ def delete_a_post(post_id):
 
 # Part 3    ################################################################################################
 # add M2M relationship, especially add tagging feature
+
+@app.route('/tags')
+def list_all_tags():    # Not yet functional
+    # GET /tags
+    # Lists all tags, with links to the tag detail page.
+    tag_values = Tag.query.all()
+    return render_template("tags/all_tags.html", tag_values = tag_values)
+
+@app.route('/tags/<int:tag_id>')
+def show_detail_about_a_tag(tag_id):
+    # GET /tags/[tag-id]
+    # Show detail about a tag. Have links to edit form and to delete.
+    aTag = Tag.query.get_or_404(tag_id)
+    return render_template('tags/user_detail.html', aTag = aTag)
+
+
+"""
+
+Add Routes
+
+
+GET /tags/new
+Shows a form to add a new tag.
+
+POST /tags/new
+Process add form, adds tag, and redirect to tag list.
+
+GET /tags/[tag-id]/edit
+Show edit form for a tag.
+
+POST /tags/[tag-id]/edit
+Process edit form, edit tag, and redirects to the tags list.
+
+POST /tags/[tag-id]/delete
+Delete a tag.
+"""
