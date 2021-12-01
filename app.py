@@ -222,18 +222,21 @@ def process_tag_input():
 
     return redirect('/tags')
 
-"""
+@app.route('/tags/<int:tag_id>/edit')   # does not work
+def show_edit_page(tag_id):
+    # GET /tags/[tag-id]/edit
+    # Show edit form for a tag.
+    return render_template("tags/edit.html")
 
-Add Routes
 
+@app.route('/tags/<int:tag_id>/edit', methods = ["POST"])
+def process_edit_tag_form(tag_id):
+    # POST /tags/[tag-id]/edit
+    # Process edit form, edit tag, and redirects to the tags list.
+    pass
 
-
-GET /tags/[tag-id]/edit
-Show edit form for a tag.
-
-POST /tags/[tag-id]/edit
-Process edit form, edit tag, and redirects to the tags list.
-
-POST /tags/[tag-id]/delete
-Delete a tag.
-"""
+@app.route('/tags/<int:tag_id>/delete')
+def delete_a_tag(tag_id):
+    # POST /tags/[tag-id]/delete
+    # Delete a tag.
+    pass
